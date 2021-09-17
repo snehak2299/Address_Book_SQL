@@ -70,3 +70,44 @@ select * from address_book;                                               // vie
     ->  ('poonam','mohpe','angan','murbad','MH',421401,1274577890,'ponam@gmail.com','friend'),
     ->  ('dipika','patil','sudharshan','newyork','US',400003,8834567890,'deepika@gmail.com','profession');
 
+************UC12**************
+CREATE TABLE contacts (
+ -> contact_id int,
+ ->firstname varchar(20),
+ ->lastname varchar(20),
+ ->email varchar(150),
+ ->phoneNo int,
+ ->PRIMARY KEY (contact_id)
+);
+
+CREATE TABLE relation (
+  ->relation_id int,
+  ->type varchar(20),
+  ->PRIMARY KEY (relation_id)
+);
+
+CREATE TABLE address_book (
+  ->contact_id int,
+  ->relation_id int,
+  ->FOREIGN KEY (contact_id) REFERENCES contacts(contact_id),
+  ->FOREIGN KEY (relation_id) REFERENCES relation(relation_id)
+);
+
+CREATE TABLE address (
+  ->city varchar(20),
+  ->state varchar(20),
+  ->zipcode int,
+  ->country varchar(20)
+);
+
+***********UC13**********
+select count(type)
+    -> from address_book a,person_details p,relation_type r
+    -> where a.contact_id = p.contact_id
+    -> and a.relation_id = r.relation_id
+    -> group by type;
+
+select count(state)
+    -> from address ,person_details p
+    -> where p.person_id = a.person_id
+    -> and state = "mh";
